@@ -1,14 +1,9 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:  
-  name: echo
+  name: hello-pipeline
 spec:
-  params:
-    - name: message
-      description: The message to echo
-      type: string
   tasks:
-    - name: echo-message
-      image: alpine:3
-      command: [/bin/echo]
-      args: ["$(params.message)"]
+    - name: hello
+      taskRef:
+        name: hello-world
