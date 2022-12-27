@@ -1,3 +1,16 @@
+# Installing Tekton Pipelines on Kubernetes
+Install Tekton on Kubernetes
+
+    kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
+
+Install Triggers
+
+    kubectl apply --filename https://storage.googleapis.com/tekton-releases/triggers/latest/release.yaml
+
+Monitor Pods
+
+    kubectl get pods --namespace tekton-pipelines --watch
+
 # Clone git Repository
 
 Add credentials
@@ -10,18 +23,6 @@ Clone Repository
 
 # Hands-on Lab: Build a Tekton Pipeline
 
-## Installing Tekton Pipelines on Kubernetes
-Install Tekton on Kubernetes
-
-    kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
-
-Install Triggers
-
-    kubectl apply --filename https://storage.googleapis.com/tekton-releases/triggers/latest/release.yaml
-
-Monitor Pods
-
-    kubectl get pods --namespace tekton-pipelines --watch
 ## Apply tasks to kubernetes
     kubectl apply -f ./labs/01_base_pipeline/tasks.yaml
 ## Apply pipelines to kubernetes
