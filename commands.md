@@ -1,4 +1,15 @@
+# Clone git Repository
+
+Add credentials
+
+    gh auth login
+
+Clone Repository
+
+    gh repo clone https://github.com/Heiko-E/wtecc-CICD_PracticeCode
+
 # Hands-on Lab: Build a Tekton Pipeline
+
 ## Installing Tekton Pipelines on Kubernetes
 Install Tekton on Kubernetes
 
