@@ -34,3 +34,31 @@ Check that tasks and pipelines are created
 
     tkn task ls
     tkn pipeline ls
+## Add event listeners
+    kubectl apply -f ./labs/02_add_git_trigger/eventlistener.yaml
+
+Check that event listeners are created
+
+    tkn eventlistener ls
+## Add triggers
+    kubectl apply -f ./labs/02_add_git_trigger/triggerbinding.yaml
+    kubectl apply -f ./labs/02_add_git_trigger/triggertemplate.yaml
+
+## Trigger the Event localy with curl
+Open a terminal and for port forwarding
+
+    kubectl port-forward service/el-cd-listener  8090:8080
+
+Trigger the event
+
+    curl -X POST http://localhost:8090 \
+    -H 'Content-Type: application/json' \
+    -d '{"ref":"main","repository":{"url":"https://github.com/Heiko-E/wtecc-CICD_PracticeCode.git"}}'
+
+Check pipeline status
+
+    tkn pipelinerun ls
+
+Get logs of last run
+
+    tkn pipelinerun logs --last
