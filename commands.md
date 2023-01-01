@@ -255,3 +255,41 @@ Get logs of last run
 Check if the deployment is running
 
     kubectl get all -l app=hitcounter
+
+# SonarQube
+
+## Set up SonarQube in a Docker container on port 9000.
+
+    docker network create mynet
+    docker run --name postgres  -e POSTGRES_USER=root -e POSTGRES_PASSWORD=Test12345  -p 5432:5432 --network mynet -d postgres
+    docker run -d --name sonarqube -p 9000:9000 -e sonar.jdbc.url=jdbc:postgresql://postgres/postgres -e sonar.jdbc.username=root -e sonar.jdbc.password=Test12345 --network mynet sonarqube
+
+Check if installation was successfull.
+
+    docker ps
+
+## Log in
+    
+    http://localhost:9000/
+    username: admin
+    password: admin
+
+Create a project manually for a local repository. Then generate an access token and get the command to run the scan. This should loo like:
+
+    sonar-scanner -Dsonar.projectKey=temp -Dsonar.sources=. -Dsonar.host.url=https://heikoegerter-9000.theiadocker-3-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai -Dsonar.login=<TOKEN>
+
+## Get SOnarQube scanner
+
+    docker pull sonarsource/sonar-scanner-cli
+    alias sonar-scanner='docker run --rm -v "$(pwd):/usr/src" sonarsource/sonar-scanner-cli'
+
+Now use the copied run command
+
+# Dynamic application security testing (DAST)
+
+Get a OWASP ZAP container:
+
+    docker pull owasp/zap2docker-stable
+Run the scan
+
+    docker run -t owasp/zap2docker-stable zap-baseline.py -t {TARGET_URL}
