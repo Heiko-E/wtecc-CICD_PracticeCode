@@ -278,7 +278,7 @@ Create a project manually for a local repository. Then generate an access token 
 
     sonar-scanner -Dsonar.projectKey=temp -Dsonar.sources=. -Dsonar.host.url=https://heikoegerter-9000.theiadocker-3-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai -Dsonar.login=<TOKEN>
 
-## Get SOnarQube scanner
+## Get SonarQube scanner
 
     docker pull sonarsource/sonar-scanner-cli
     alias sonar-scanner='docker run --rm -v "$(pwd):/usr/src" sonarsource/sonar-scanner-cli'
@@ -290,6 +290,17 @@ Now use the copied run command
 Get a OWASP ZAP container:
 
     docker pull owasp/zap2docker-stable
+
 Run the scan
 
     docker run -t owasp/zap2docker-stable zap-baseline.py -t {TARGET_URL}
+
+# Static application security testing (SAST)
+
+Instal bandit
+
+    pip install bandit
+
+Run bandit in bash
+
+    bandit -r web_app_example.py -o ./results.txt
